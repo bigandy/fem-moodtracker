@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { MoodOptionType } from '../types';
 import { theme } from '../theme';
@@ -11,10 +11,22 @@ const moodOptions: MoodOptionType[] = [
   { emoji: '😤', description: 'frustrated' },
 ];
 
-export const MoodPicker: React.FC = () => {
+type MoodPickerProps = {
+  handleSelectMood: (mood: MoodOptionType) => void;
+};
+
+export const MoodPicker: React.FC<MoodPickerProps> = ({ handleSelectMood }) => {
   const [selectedMood, setSelectedMood] = useState<MoodOptionType>();
 
   const [pressed, setPressed] = useState<boolean>(false);
+  // const pressed = false;
+
+  const handleButtonPress = useCallback(() => {
+    if (selectedMood) {
+      handleSelectMood(selectedMood);
+      setSelectedMood(undefined);
+    }
+  }, [handleSelectMood, selectedMood]);
 
   return (
     <View style={[styles.container, pressed && styles.containerPressed]}>
@@ -40,9 +52,14 @@ export const MoodPicker: React.FC = () => {
         ))}
       </View>
       <Pressable
-        style={styles.button}
+        style={[
+          styles.button,
+          !selectedMood ? styles.disabledButton : undefined,
+        ]}
         onPressIn={() => setPressed(true)}
-        onPressOut={() => setPressed(false)}>
+        onPressOut={() => setPressed(false)}
+        onPress={handleButtonPress}
+        disabled={!selectedMood}>
         <Text style={styles.buttonText}>Choose</Text>
       </Pressable>
     </View>
@@ -100,6 +117,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignSelf: 'center',
     padding: 10,
+  },
+  disabledButton: {
+    backgroundColor: 'lightgrey',
   },
   buttonText: {
     color: theme.colorWhite,
