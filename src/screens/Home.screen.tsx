@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { MoodPicker } from '../components/MoodPicker';
 
 export const Home: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Home - Hello World!</Text>
+      <MoodPicker />
     </View>
   );
 };
@@ -12,6 +14,6 @@ export const Home: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'teal',
+    justifyContent: 'center',
   },
 });
