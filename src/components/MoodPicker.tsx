@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import { MoodOptionType } from '../types';
 import { theme } from '../theme';
 
 import { useAppContext } from '../components/App.provider';
+
+const imageSrc = require('../assets/butterflies.png');
 
 const moodOptions: MoodOptionType[] = [
   { emoji: '🧑‍💻', description: 'studious' },
@@ -19,14 +21,29 @@ export const MoodPicker: React.FC = () => {
   const { handleSelectMood } = useAppContext();
 
   const [pressed, setPressed] = useState<boolean>(false);
-  // const pressed = false;
+  const [hasSelected, setHasSelected] = useState<boolean>(false);
 
   const handleButtonPress = useCallback(() => {
     if (selectedMood) {
       handleSelectMood(selectedMood);
       setSelectedMood(undefined);
+      setHasSelected(true);
+      setPressed(false);
     }
   }, [handleSelectMood, selectedMood]);
+
+  if (hasSelected) {
+    return (
+      <View style={[styles.container, pressed && styles.containerPressed]}>
+        <Image source={imageSrc} style={styles.image} />
+        <Pressable
+          style={[styles.button]}
+          onPress={() => setHasSelected(false)}>
+          <Text style={styles.buttonText}>Choose another!</Text>
+        </Pressable>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.container, pressed && styles.containerPressed]}>
@@ -98,6 +115,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 10,
     padding: 20,
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
   containerPressed: {
     backgroundColor: theme.colorPurple,
@@ -108,6 +126,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     textAlign: 'center',
     marginBottom: 20,
+    color: theme.colorWhite,
   },
   button: {
     backgroundColor: theme.colorPurple,
@@ -124,5 +143,8 @@ const styles = StyleSheet.create({
     color: theme.colorWhite,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  image: {
+    alignSelf: 'center',
   },
 });

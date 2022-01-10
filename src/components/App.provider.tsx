@@ -8,13 +8,15 @@ import React, {
 
 import { MoodOptionWithTimestamp, MoodOptionType } from '../types';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const storageKey = 'my-app-data';
+
 type AppContextType = {
   moodList: MoodOptionWithTimestamp[];
   handleSelectMood: (selectedMood: MoodOptionType) => void;
 };
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-const storageKey = 'my-app-data';
 type AppData = { moods: MoodOptionWithTimestamp[] };
 
 const getAppData = async (): Promise<AppData | null> => {
@@ -29,7 +31,7 @@ const getAppData = async (): Promise<AppData | null> => {
   }
 };
 
-const setAppData = async (newData: AppData) => {
+const setAppData = async (newData: AppData): Promise<void> => {
   try {
     await AsyncStorage.setItem(storageKey, JSON.stringify(newData));
   } catch {}
