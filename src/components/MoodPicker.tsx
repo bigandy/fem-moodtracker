@@ -5,7 +5,7 @@ import { theme } from '../theme';
 
 import { useAppContext } from '../components/App.provider';
 
-const imageSrc = require('../assets/butterflies.png');
+const imageSrc = require('../../assets/butterflies.png');
 
 const moodOptions: MoodOptionType[] = [
   { emoji: '🧑‍💻', description: 'studious' },
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     color: theme.colorPurple,
-    fontWeight: 'bold',
+    fontFamily: theme.fontFamilyBold,
     fontSize: 10,
     textAlign: 'center',
   },
@@ -122,11 +122,11 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 20,
-    fontWeight: 'bold',
     letterSpacing: 1,
     textAlign: 'center',
     marginBottom: 20,
     color: theme.colorWhite,
+    fontFamily: theme.fontFamilyBold,
   },
   button: {
     backgroundColor: theme.colorPurple,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: theme.colorWhite,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: theme.fontFamilyBold,
   },
   image: {
     alignSelf: 'center',

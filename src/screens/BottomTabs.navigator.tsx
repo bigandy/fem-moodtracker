@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native';
 import { Home } from './Home.screen';
 import { History } from './History.screen';
 import { Analytics } from './Analytics.screen';
@@ -18,6 +17,7 @@ export const BottomTabsNavigator: React.FC = () => {
         tabBarActiveTintColor: theme.colorBlue,
         tabBarInactiveTintColor: theme.colorGrey,
         tabBarShowLabel: false,
+        headerTitleStyle: { fontFamily: theme.fontFamilyBold },
         tabBarIcon: ({ size }) => {
           if (route.name === 'Home') {
             return <HomeIcon size={size} />;
