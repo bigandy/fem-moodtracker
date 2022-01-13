@@ -8,7 +8,10 @@ export const History: React.FC = () => {
   return (
     <View style={styles.container}>
       {moodList.length > 0 &&
-        moodList.map(item => <MoodItemRow item={item} key={item.timestamp} />)}
+        moodList
+          .slice()
+          .reverse()
+          .map(item => <MoodItemRow item={item} key={item.timestamp} />)}
     </View>
   );
 };
